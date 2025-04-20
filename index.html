@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Pakar Diagnosa Penyakit Cabai</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <svg
+          class="header-bg-icon"
+          width="150"
+          height="150"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12,3c0,0-6.186,5.34-9.643,8.232C2.154,11.416,2,11.684,2,12c0,0.553,0.447,1,1,1h2v7c0,0.553,0.447,1,1,1h3 c0.553,0,1-0.448,1-1v-4h4v4c0,0.552,0.447,1,1,1h3c0.553,0,1-0.447,1-1v-7h2c0.553,0,1-0.447,1-1 c0-0.316-0.154-0.584-0.383-0.768C18.184,8.34,12,3,12,3z"
+            fill="rgba(255,255,255,0.1)"
+          />
+        </svg>
+        <h1>Sistem Pakar Diagnosa Penyakit Cabai</h1>
+        <p>
+          Sistem diagnosa penyakit tanaman cabai dengan metode Forward Chaining
+        </p>
+      </header>
+
+      <main>
+        <section id="intro-section">
+          <svg
+            class="decoration-leaf leaf-1"
+            viewBox="0 0 50 50"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M10,25 Q25,5 40,25 Q25,45 10,25 Z" fill="#4CAF50" />
+          </svg>
+          <svg
+            class="decoration-leaf leaf-2"
+            viewBox="0 0 50 50"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M10,25 Q25,5 40,25 Q25,45 10,25 Z" fill="#4CAF50" />
+          </svg>
+
+          <div class="intro-content">
+            <div class="intro-text">
+              <h2>Selamat Datang di SistemPakarCabai</h2>
+              <p class="intro-description">
+                <i class="fas fa-seedling text-green"></i> Sistem pakar ini akan
+                membantu Anda mendiagnosa penyakit pada tanaman cabai
+                berdasarkan gejala yang terlihat.
+              </p>
+              <p class="intro-description">
+                <i class="fas fa-search text-green"></i> Identifikasi penyakit
+                dengan cepat dan akurat melalui sistem pakar berbasis
+                pengetahuan ahli pertanian.
+              </p>
+              <p class="sub-text">
+                <i class="fas fa-info-circle"></i> Pilih bagian tanaman cabai
+                yang menunjukkan gejala untuk memulai diagnosa
+              </p>
+            </div>
+            <div class="plant-illustration">
+              <div class="plant-container">
+                <div class="plant-glow"></div>
+                <svg
+                  id="plant-svg"
+                  viewBox="0 0 400 600"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <!-- Tanah -->
+                  <ellipse cx="200" cy="520" rx="120" ry="30" fill="#a5714b" />
+
+                  <!-- Batang -->
+                  <path
+                    id="stem"
+                    d="M200,500 L200,300"
+                    stroke="#5D4037"
+                    stroke-width="8"
+                  />
+
+                  <!-- Akar -->
+                  <g id="root-area" class="plant-area" data-area="akar">
+                    <path
+                      id="roots"
+                      d="M200,500 L170,550 M200,500 L230,550 M200,500 L200,570 M180,510 L160,540 M220,510 L240,540"
+                      stroke="#795548"
+                      stroke-width="5"
+                    />
+                    <circle cx="200" cy="520" r="40" fill="transparent" />
+                  </g>
+
+                  <!-- Daun -->
+                  <g id="leaf-area" class="plant-area" data-area="daun">
+                    <path
+                      id="leaf1"
+                      d="M200,400 C230,380 260,400 240,430"
+                      stroke="#388E3C"
+                      stroke-width="2"
+                      fill="#4CAF50"
+                    />
+                    <path
+                      id="leaf2"
+                      d="M200,350 C170,330 140,350 160,380"
+                      stroke="#388E3C"
+                      stroke-width="2"
+                      fill="#4CAF50"
+                    />
+                    <path
+                      id="leaf3"
+                      d="M200,320 C230,300 260,320 240,350"
+                      stroke="#388E3C"
+                      stroke-width="2"
+                      fill="#4CAF50"
+                    />
+                    <path
+                      id="leaf4"
+                      d="M200,370 C170,350 140,370 160,400"
+                      stroke="#388E3C"
+                      stroke-width="2"
+                      fill="#4CAF50"
+                    />
+                    <circle cx="200" cy="360" r="70" fill="transparent" />
+                  </g>
+
+                  <!-- Buah -->
+                  <g id="fruit-area" class="plant-area" data-area="buah">
+                    <path
+                      id="fruit1"
+                      d="M220,320 C225,300 235,290 240,300 C245,310 235,330 220,320"
+                      stroke="#D32F2F"
+                      stroke-width="1"
+                      fill="#F44336"
+                    />
+                    <path
+                      id="fruit2"
+                      d="M180,350 C175,330 165,320 160,330 C155,340 165,360 180,350"
+                      stroke="#D32F2F"
+                      stroke-width="1"
+                      fill="#F44336"
+                    />
+                    <path
+                      id="fruit3"
+                      d="M225,380 C230,360 240,350 245,360 C250,370 240,390 225,380"
+                      stroke="#D32F2F"
+                      stroke-width="1"
+                      fill="#F44336"
+                    />
+                    <circle cx="200" cy="320" r="40" fill="transparent" />
+                  </g>
+                </svg>
+                <div class="plant-tooltip" id="tooltip-akar">
+                  <i class="fas fa-arrow-down"></i> Klik untuk memeriksa gejala
+                  pada akar
+                </div>
+                <div class="plant-tooltip" id="tooltip-daun">
+                  <i class="fas fa-leaf"></i> Klik untuk memeriksa gejala pada
+                  daun
+                </div>
+                <div class="plant-tooltip" id="tooltip-buah">
+                  <i class="fas fa-pepper-hot"></i> Klik untuk memeriksa gejala
+                  pada buah
+                </div>
+              </div>
+              <button id="start-diagnosis">
+                <i class="fas fa-list-check"></i> Pilih Gejala Manual
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="diagnosis-section" class="hidden">
+          <svg
+            class="decoration-leaf leaf-1"
+            viewBox="0 0 50 50"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M10,25 Q25,5 40,25 Q25,45 10,25 Z" fill="#4CAF50" />
+          </svg>
+
+          <div class="section-header">
+            <button id="back-to-intro" class="back-button">
+              <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <h2>Pilih Gejala yang Terlihat</h2>
+          </div>
+          <p class="section-description">
+            <i class="fas fa-clipboard-check"></i> Centang gejala-gejala yang
+            terlihat pada tanaman cabai Anda:
+          </p>
+
+          <div class="diagnosis-content">
+            <div class="plant-small-view">
+              <div class="small-view-header">
+                <i class="fas fa-filter"></i> Filter Gejala
+              </div>
+              <svg
+                id="plant-small-svg"
+                viewBox="0 0 400 600"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <!-- Tanah -->
+                <ellipse cx="200" cy="520" rx="80" ry="20" fill="#a5714b" />
+
+                <!-- Batang -->
+                <path d="M200,500 L200,300" stroke="#5D4037" stroke-width="8" />
+
+                <!-- Akar -->
+                <g
+                  id="root-area-small"
+                  class="plant-area-small"
+                  data-filter="akar"
+                >
+                  <path
+                    d="M200,500 L170,550 M200,500 L230,550 M200,500 L200,570"
+                    stroke="#795548"
+                    stroke-width="5"
+                  />
+                  <circle
+                    cx="200"
+                    cy="520"
+                    r="40"
+                    fill="rgba(121, 85, 72, 0.2)"
+                  />
+                </g>
+
+                <!-- Daun -->
+                <g
+                  id="leaf-area-small"
+                  class="plant-area-small"
+                  data-filter="daun"
+                >
+                  <path
+                    d="M200,400 C230,380 260,400 240,430"
+                    stroke="#388E3C"
+                    stroke-width="2"
+                    fill="#4CAF50"
+                  />
+                  <path
+                    d="M200,350 C170,330 140,350 160,380"
+                    stroke="#388E3C"
+                    stroke-width="2"
+                    fill="#4CAF50"
+                  />
+                  <path
+                    d="M200,320 C230,300 260,320 240,350"
+                    stroke="#388E3C"
+                    stroke-width="2"
+                    fill="#4CAF50"
+                  />
+                  <path
+                    d="M200,370 C170,350 140,370 160,400"
+                    stroke="#388E3C"
+                    stroke-width="2"
+                    fill="#4CAF50"
+                  />
+                  <circle
+                    cx="200"
+                    cy="360"
+                    r="70"
+                    fill="rgba(76, 175, 80, 0.2)"
+                  />
+                </g>
+
+                <!-- Buah -->
+                <g
+                  id="fruit-area-small"
+                  class="plant-area-small"
+                  data-filter="buah"
+                >
+                  <path
+                    d="M220,320 C225,300 235,290 240,300 C245,310 235,330 220,320"
+                    stroke="#D32F2F"
+                    stroke-width="1"
+                    fill="#F44336"
+                  />
+                  <path
+                    d="M180,350 C175,330 165,320 160,330 C155,340 165,360 180,350"
+                    stroke="#D32F2F"
+                    stroke-width="1"
+                    fill="#F44336"
+                  />
+                  <circle
+                    cx="200"
+                    cy="320"
+                    r="40"
+                    fill="rgba(244, 67, 54, 0.2)"
+                  />
+                </g>
+              </svg>
+              <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="semua">
+                  <i class="fas fa-border-all"></i> Semua
+                </button>
+                <button class="filter-btn" data-filter="daun">
+                  <i class="fas fa-leaf"></i> Daun
+                </button>
+                <button class="filter-btn" data-filter="buah">
+                  <i class="fas fa-pepper-hot"></i> Buah
+                </button>
+                <button class="filter-btn" data-filter="akar">
+                  <i class="fas fa-seedling"></i> Akar
+                </button>
+              </div>
+            </div>
+
+            <div class="symptoms-container">
+              <div class="symptom-category-label" id="daun-label">
+                <i class="fas fa-leaf"></i> Gejala pada Daun
+              </div>
+              <div class="symptom-item" data-category="daun">
+                <input type="checkbox" id="G1" name="symptoms" value="G1" />
+                <label for="G1">G1: Daun mengalami kelayuan.</label>
+              </div>
+              <div class="symptom-item" data-category="daun">
+                <input type="checkbox" id="G2" name="symptoms" value="G2" />
+                <label for="G2"
+                  >G2: Daun menguning dan menjalar ke ranting</label
+                >
+              </div>
+              <div class="symptom-item" data-category="daun">
+                <input type="checkbox" id="G3" name="symptoms" value="G3" />
+                <label for="G3"
+                  >G3: Warna jaringan akar dan batang menjadi coklat.</label
+                >
+              </div>
+
+              <div class="symptom-category-label" id="buah-label">
+                <i class="fas fa-pepper-hot"></i> Gejala pada Buah
+              </div>
+              <div class="symptom-item" data-category="buah">
+                <input type="checkbox" id="G4" name="symptoms" value="G4" />
+                <label for="G4"
+                  >G4: Muncul bercak pada buah yang agak mengkilap</label
+                >
+              </div>
+              <div class="symptom-item" data-category="buah">
+                <input type="checkbox" id="G5" name="symptoms" value="G5" />
+                <label for="G5">G5: Seluruh buah keriput dan menguning</label>
+              </div>
+              <div class="symptom-item" data-category="buah">
+                <input type="checkbox" id="G6" name="symptoms" value="G6" />
+                <label for="G6">G6: Warna ulit buah seperti jerami padi</label>
+              </div>
+
+              <div class="symptom-category-label" id="akar-label">
+                <i class="fas fa-seedling"></i> Gejala pada Akar
+              </div>
+              <div class="symptom-item" data-category="akar">
+                <input type="checkbox" id="G7" name="symptoms" value="G7" />
+                <label for="G7"
+                  >G7: Tanaman tiba-tiba layu tanpa sebab jelas.</label
+                >
+              </div>
+              <div class="symptom-item" data-category="akar">
+                <input type="checkbox" id="G8" name="symptoms" value="G8" />
+                <label for="G8"
+                  >G8: Akar terlihat busuk dan berwarna kehitaman.</label
+                >
+              </div>
+              <div class="symptom-item" data-category="akar">
+                <input type="checkbox" id="G9" name="symptoms" value="G9" />
+                <label for="G9"
+                  >G9: Daun tetap hijau tapi menggulung dan cepat rontok.</label
+                >
+              </div>
+            </div>
+          </div>
+
+          <button id="diagnose-button">
+            <i class="fas fa-stethoscope"></i> Diagnosa
+          </button>
+        </section>
+
+        <section id="result-section" class="hidden">
+          <svg
+            class="decoration-leaf leaf-1"
+            viewBox="0 0 50 50"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M10,25 Q25,5 40,25 Q25,45 10,25 Z" fill="#4CAF50" />
+          </svg>
+          <svg
+            class="decoration-leaf leaf-2"
+            viewBox="0 0 50 50"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M10,25 Q25,5 40,25 Q25,45 10,25 Z" fill="#4CAF50" />
+          </svg>
+
+          <div class="section-header">
+            <button id="back-to-diagnosis" class="back-button">
+              <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <h2>Hasil Diagnosa</h2>
+          </div>
+          <div id="result-content">
+            <div class="result-visualization">
+              <div class="result-plant-container">
+                <svg
+                  id="result-plant-svg"
+                  viewBox="0 0 400 600"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <!-- Tanah -->
+                  <ellipse cx="200" cy="520" rx="120" ry="30" fill="#a5714b" />
+
+                  <!-- Batang -->
+                  <path
+                    id="result-stem"
+                    d="M200,500 L200,300"
+                    stroke="#5D4037"
+                    stroke-width="8"
+                  />
+
+                  <!-- Akar -->
+                  <g id="result-root-area">
+                    <path
+                      id="result-roots"
+                      d="M200,500 L170,550 M200,500 L230,550 M200,500 L200,570 M180,510 L160,540 M220,510 L240,540"
+                      stroke="#795548"
+                      stroke-width="5"
+                    />
+                  </g>
+
+                  <!-- Daun -->
+                  <g id="result-leaf-area">
+                    <path
+                      id="result-leaf1"
+                      d="M200,400 C230,380 260,400 240,430"
+                      stroke="#388E3C"
+                      stroke-width="2"
+                      fill="#4CAF50"
+                    />
+                    <path
+                      id="result-leaf2"
+                      d="M200,350 C170,330 140,350 160,380"
+                      stroke="#388E3C"
+                      stroke-width="2"
+                      fill="#4CAF50"
+                    />
+                    <path
+                      id="result-leaf3"
+                      d="M200,320 C230,300 260,320 240,350"
+                      stroke="#388E3C"
+                      stroke-width="2"
+                      fill="#4CAF50"
+                    />
+                    <path
+                      id="result-leaf4"
+                      d="M200,370 C170,350 140,370 160,400"
+                      stroke="#388E3C"
+                      stroke-width="2"
+                      fill="#4CAF50"
+                    />
+                  </g>
+
+                  <!-- Buah -->
+                  <g id="result-fruit-area">
+                    <path
+                      id="result-fruit1"
+                      d="M220,320 C225,300 235,290 240,300 C245,310 235,330 220,320"
+                      stroke="#D32F2F"
+                      stroke-width="1"
+                      fill="#F44336"
+                    />
+                    <path
+                      id="result-fruit2"
+                      d="M180,350 C175,330 165,320 160,330 C155,340 165,360 180,350"
+                      stroke="#D32F2F"
+                      stroke-width="1"
+                      fill="#F44336"
+                    />
+                    <path
+                      id="result-fruit3"
+                      d="M225,380 C230,360 240,350 245,360 C250,370 240,390 225,380"
+                      stroke="#D32F2F"
+                      stroke-width="1"
+                      fill="#F44336"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <div class="result-details">
+              <div id="disease-info">
+                <div class="disease-badge">Diagnosa Penyakit</div>
+                <h3 id="disease-name"></h3>
+                <p id="disease-type"></p>
+                <div id="confidence-info" class="confidence-meter">
+                  <div class="confidence-title">
+                    <i class="fas fa-chart-pie"></i> Tingkat Kepercayaan
+                  </div>
+                  <div class="confidence-bar-container">
+                    <div
+                      id="confidence-bar"
+                      class="confidence-bar"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                  <div class="confidence-levels">
+                    <span class="confidence-level-low">Rendah</span>
+                    <span class="confidence-level-medium">Sedang</span>
+                    <span class="confidence-level-high">Tinggi</span>
+                  </div>
+                  <div class="confidence-value" id="confidence-value">0%</div>
+                  <div class="confidence-explanation">
+                    <p>
+                      <i class="fas fa-info-circle"></i> Tingkat kepercayaan
+                      menunjukkan seberapa akurat diagnosis berdasarkan gejala
+                      yang dipilih.
+                    </p>
+                    <p>
+                      Diagnosis dengan tingkat kepercayaan 100% berarti semua
+                      gejala penyakit terpenuhi, sedangkan tingkat kepercayaan
+                      lebih rendah berarti hanya sebagian gejala yang cocok.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div id="symptoms-detected">
+                <h3>
+                  <i class="fas fa-clipboard-list"></i> Gejala yang Terdeteksi:
+                </h3>
+                <ul id="symptoms-list"></ul>
+              </div>
+              <div id="solution">
+                <h3>
+                  <i class="fas fa-hand-holding-medical"></i> Solusi
+                  Pengendalian:
+                </h3>
+                <p id="solution-text"></p>
+              </div>
+              <button id="restart-button">
+                <i class="fas fa-redo"></i> Diagnosa Ulang
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>&copy; 2023 Sistem Pakar Diagnosa Penyakit Cabai</p>
+        <div class="footer-icons">
+          <i class="fas fa-leaf"></i>
+          <i class="fas fa-seedling"></i>
+          <i class="fas fa-pepper-hot"></i>
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
